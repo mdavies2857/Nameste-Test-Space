@@ -1,6 +1,92 @@
 <html>
     <head>  <center> <font color="white"> <font size=20> <b> Hello, world! </b> </font> </head>
     <body>
+    
+<div align="center" id="img" style="position:absolute;">
+<img src="http://www.htmlbestcodes.com/images/ball.gif" onMouseDown="pauseResume();">
+</div>
+<SCRIPT LANGUAGE="JavaScript">
+var step = 5;
+var delay = 30;
+var height = 0;
+var Hoffset = 0;
+var Woffset = 0;
+var yon = 0;
+var xon = 0;
+var pause = true;
+var interval;
+var name = navigator.appName;
+if(name == "Microsoft Internet Explorer") name = true;
+else name = false;
+var xPos = 20;
+if(name) var yPos = document.body.clientHeight;
+else var yPos = window.innerHeight;
+function changePos() {
+if(name) {
+width = document.body.clientWidth;
+height = document.body.clientHeight;
+Hoffset = img.offsetHeight;
+Woffset = img.offsetWidth;
+img.style.left = xPos + document.body.scrollLeft;
+img.style.top = yPos + document.body.scrollTop;
+}
+else {
+height = window.innerHeight;
+width = window.innerWidth;
+Hoffset =33;
+Woffset =30;
+document.getElementById('img').style.top = yPos + window.pageYOffset;
+document.getElementById('img').style.left = xPos + window.pageXOffset;
+}
+if (yon) {
+yPos = yPos + step;
+}
+else {
+yPos = yPos - step;
+}
+if (yPos < 0) {
+yon = 1;
+yPos = 0;
+}
+if (yPos >= (height - Hoffset)) {
+yon = 0;
+yPos = (height - Hoffset);
+}
+if (xon) {
+xPos = xPos + step;
+}
+else {
+xPos = xPos - step;
+}
+if (xPos < 0) {
+xon = 1;
+xPos = 0;
+}
+if (xPos >= (width - Woffset)) {
+xon = 0;
+xPos = (width - Woffset);
+   }
+}
+function start() {
+document.getElementById('img').style.visibility = "visible";
+interval = setInterval('changePos()',delay);
+}
+function pauseResume() {
+if(pause) {
+clearInterval(interval);
+pause = false;
+}
+else {
+interval = setInterval('changePos()',delay);
+pause = true;
+   }
+}
+start();
+//  End -->
+</script>
+
+<!-- header -->
+
     <h1> <font size = 12> Nameste </font></font></h1>    
     <img src = http://www.angelstartherapies.com/wp-content/uploads/2014/07/Chakra-Healing-Image.jpg></center>
     </body>
@@ -155,6 +241,78 @@ function fadebg() {
 if (browserok) {
 	window.onload=setrandomcolor
 }
+</script>
+
+
+
+<!-- Dropping ball script -->
+
+
+<div align="center" id="staticBall" style="position:relative;visibility:visible">
+<img src="http://www.htmlbestcodes.com/images/ball.gif" height=30 width=30 alt="Static ball">
+</div>
+</center>
+<div id="ball" style="visibility:hidden; position:absolute; left:100; top:10; height:34; width:34">
+<img src="http://www.htmlbestcodes.com/images/ball.gif" height=30 width=30 alt="Bouncing ball">
+</div>
+<script language="Javascript">
+/* Visit http://www.yaldex.com/ for full source code
+and get more free JavaScript, CSS and DHTML scripts! */
+<!-- Begin
+iter = 0;
+setId = 0;
+down = true;
+up = false;
+var ns = ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) >= 4));
+ie=!ns;
+bouncingBall =  document.getElementById("ball").style;
+stillBall = document.getElementById("staticBall").style;
+var winH ;//= (ns) ? window.innerHeight - 55 : document.body.offsetHeight - 55;
+document.onmouseup = buttonUp;
+if (ns)
+document.captureEvents(Event.MOUSEUP);
+function buttonUp(e) {
+winH = (ns) ? window.innerHeight - 55 +window.scrollY: document.body.offsetHeight - 55 +document.body.scrollTop;
+if ( ((ns) ? e.which : event.button) != 1) return true;
+if (setId != 0) clearInterval(setId);
+bouncingBall.visibility="visible";
+stillBall.visibility="hidden";
+bouncingBall.left = (ns) ? e.pageX - 15 : event.clientX - 15;
+bouncingBall.top = (ns) ? e.pageY - 15 : event.clientY - 15+document.body.scrollTop;
+iter = 0;
+setId = setInterval("generateGravity()", 20);
+return true;
+}
+function generateGravity() {
+if ((parseInt(bouncingBall.top)+iter < winH) && down) {
+bouncingBall.top = parseInt(bouncingBall.top) + iter;
+iter++;
+return;
+}
+else {
+if ((parseInt(bouncingBall.top)< winH) && down) {
+bouncingBall.top = winH + 5;
+return;
+}
+down = false;
+up = true;
+if (iter < 0 && parseInt(bouncingBall.top) > winH) {
+clearInterval(setId);
+bouncingBall.visibility = "hidden";
+stillBall.visibility="visible";
+setId = 0;
+}
+if (parseInt(bouncingBall.top) > 0 && up && iter >= 0) {
+bouncingBall.top = parseInt(bouncingBall.top) - iter;
+iter--;
+if (iter%3 == 0) iter--;
+return;
+}
+down = true;
+up = false;
+   }
+}
+// End -->
 </script>
 
 </html>
